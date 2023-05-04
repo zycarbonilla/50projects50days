@@ -1,20 +1,23 @@
-const hourEl = document.querySelector('.hour')
-const minuteEl = document.querySelector('.minute')
-const secondEl = document.querySelector('.second')
-const timeEl = document.querySelector('.time')
-const dateEl = document.querySelector('.date')
-const toggle = document.querySelector('.toggle')
+const buttons = document.querySelectorAll('.ripple')
 
-const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+buttons.forEach(button => {
+    button.addEventListener('click', function (e) {
+        const x = e.pageX
+        const y = e.pageY
 
-toggle.addEventListener('click', (e) => {
-    const html = document.querySelector('html')
-    if (html.classList.contains('dark')) {
-        html.classList.remove('dark')
-        e.target.innerHTML = 'Dark mode'
-    } else {
-        html.classList.add('dark')
-        e.target.innerHTML = 'Light mode'
-    }
+        const buttonTop = e.target.offsetTop
+        const buttonLeft = e.target.offsetLeft
+
+        const xInside = x - buttonLeft
+        const yInside = y - buttonTop
+
+        const circle = document.createElement('span')
+        circle.classList.add('circle')
+        circle.style.top = yInside + 'px'
+        circle.style.left = xInside + 'px'
+
+        this.appendChild(circle)
+
+        setTimeout(() => circle.remove(), 500)
+    })
 })
